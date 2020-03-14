@@ -51,7 +51,7 @@ void sg_set_image_parent(struct SgImage *img, struct SgBitmap *parent);
    is destroyed.
 */
 struct SgImageData {
-    int width, height;
+    uint16_t width, height;
     int rMask, gMask, bMask, aMask;
     uint32_t *data;
 };

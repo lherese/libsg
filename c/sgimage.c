@@ -22,8 +22,8 @@ struct SgImageRecord {
     uint32_t uncompressed_length;
     /* 4 zero bytes: */
     int32_t invert_offset;
-    int16_t width;
-    int16_t height;
+    uint16_t width;
+    uint16_t height;
     /* 26 unknown bytes, mostly zero, first four are 2 shorts */
     uint16_t type;
     /* 4 flag/option-like bytes: */
@@ -88,8 +88,8 @@ struct SgImageRecord sg_read_image_record(FILE *f, bool includeAlpha)
     readUInt32le(f, &rec.uncompressed_length);
     fseek(f, 4, SEEK_CUR);
     readInt32le(f, &rec.invert_offset);
-    readInt16le(f, &rec.width);
-    readInt16le(f, &rec.height);
+    readUInt16le(f, &rec.width);
+    readUInt16le(f, &rec.height);
     fseek(f, 26, SEEK_CUR);
     readUInt16le(f, &rec.type);
     fread(rec.flags, 4, 1, f);
