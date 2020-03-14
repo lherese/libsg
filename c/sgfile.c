@@ -67,7 +67,6 @@ struct SgFile *sg_read_file(const char *filename)
     FILE *file = fopen(filename, "r");
 
     if (file == NULL) {
-        printf("Unable to open file\n");
         return NULL;
     }
 
@@ -77,9 +76,6 @@ struct SgFile *sg_read_file(const char *filename)
         fclose(file);
         return NULL;
     }
-
-    printf("Read header, num bitmaps = %d, num images = %d",
-           sgf->header->num_bitmap_records, sgf->header->num_image_records);
 
     loadBitmaps(sgf, file);
 
