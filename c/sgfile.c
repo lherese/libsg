@@ -58,8 +58,7 @@ struct SgHeader *sg_read_header(FILE *f)
 struct SgFile *sg_read_file(const char *filename)
 {
     struct SgFile *sgf = (struct SgFile*)malloc(sizeof(struct SgFile));
-    sgf->filename = (char*)malloc(sizeof(char) * (strlen(filename) + 1));
-    strcpy(sgf->filename, filename);
+    sgf->filename = strdup(filename);
     sgf->bitmaps = NULL;
     sgf->bitmaps_n = 0;
     sgf->images = NULL;
