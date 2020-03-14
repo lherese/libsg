@@ -15,10 +15,10 @@ struct SgHeader {
     uint32_t sg_filesize;
     uint32_t version;
     uint32_t unknown1;
-    int32_t max_image_records;
-    int32_t num_image_records;
-    int32_t num_bitmap_records;
-    int32_t num_bitmap_records_without_system; /* ? */
+    uint32_t max_image_records;
+    uint32_t num_image_records;
+    uint32_t num_bitmap_records;
+    uint32_t num_bitmap_records_without_system; /* ? */
     uint32_t total_filesize;
     uint32_t filesize_555;
     uint32_t filesize_external;
@@ -26,9 +26,9 @@ struct SgHeader {
 
 struct SgFile {
     struct SgBitmap **bitmaps;
-    int bitmaps_n;
+    uint32_t bitmaps_n;
     struct SgImage **images;
-    int images_n;
+    uint32_t images_n;
     char* filename;
     struct SgHeader *header;
 };
@@ -44,10 +44,10 @@ struct SgHeader *sg_read_header(FILE *f)
     readUInt32le(f, &h->sg_filesize);
     readUInt32le(f, &h->version);
     readUInt32le(f, &h->unknown1);
-    readInt32le(f, &h->max_image_records);
-    readInt32le(f, &h->num_image_records);
-    readInt32le(f, &h->num_bitmap_records);
-    readInt32le(f, &h->num_bitmap_records_without_system);
+    readUInt32le(f, &h->max_image_records);
+    readUInt32le(f, &h->num_image_records);
+    readUInt32le(f, &h->num_bitmap_records);
+    readUInt32le(f, &h->num_bitmap_records_without_system);
     readUInt32le(f, &h->total_filesize);
     readUInt32le(f, &h->filesize_555);
     readUInt32le(f, &h->filesize_external);
@@ -86,10 +86,8 @@ struct SgFile *sg_read_file(const char *filename)
     fclose(file);
 
     if (sgf->bitmaps_n > 1 && sgf->images_n == sg_get_bitmap_image_count(sgf->bitmaps[0])) {
-        printf("SG file has %d bitmaps but only the first is in use\n",
-               sgf->bitmaps_n);
         // Remove the bitmaps other than the first
-        int i;
+        uint32_t i;
         for (i = sgf->bitmaps_n - 1; i > 0; i--) {
             struct SgBitmap *bmp = sgf->bitmaps[i];
             sg_delete_bitmap(bmp);
@@ -216,11 +214,11 @@ uint32_t sg_get_file_external_filesize(struct SgFile *file)
     return file->header->filesize_external;
 }
 
-int sg_get_file_bitmap_count(struct SgFile *file)
+uint32_t sg_get_file_bitmap_count(struct SgFile *file)
 {
     return file->bitmaps_n;
 }
-struct SgBitmap *sg_get_file_bitmap(struct SgFile *file, int i)
+struct SgBitmap *sg_get_file_bitmap(struct SgFile *file, uint32_t i)
 {
     if (i < 0 || i >= file->bitmaps_n) {
         return NULL;
@@ -229,11 +227,11 @@ struct SgBitmap *sg_get_file_bitmap(struct SgFile *file, int i)
     return file->bitmaps[i];
 }
 
-int sg_get_file_image_count(struct SgFile *file)
+uint32_t sg_get_file_image_count(struct SgFile *file)
 {
     return file->images_n;
 }
-struct SgImage *sg_get_file_image(struct SgFile *file, int i)
+struct SgImage *sg_get_file_image(struct SgFile *file, uint32_t i)
 {
     if (i < 0 || i >= file->images_n) {
         return NULL;

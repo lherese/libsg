@@ -23,11 +23,11 @@ struct SgBitmapRecord {
 
 struct SgBitmap {
     struct SgImage **images;
-    int images_n;
-    int images_c;
+    uint32_t images_n;
+    uint32_t images_c;
     struct SgBitmapRecord *record;
     char *sgFilename;
-    int bitmapId;
+    uint32_t bitmapId;
 };
 
 
@@ -50,7 +50,7 @@ struct SgBitmapRecord *sg_read_bitmap_record(FILE *f)
     return rec;
 }
 
-struct SgBitmap *sg_read_bitmap(int id, const char *sgFilename, FILE *file)
+struct SgBitmap *sg_read_bitmap(uint32_t id, const char *sgFilename, FILE *file)
 {
     struct SgBitmap *bmp = (struct SgBitmap*)malloc(sizeof(struct SgBitmap));
 
@@ -115,12 +115,12 @@ const char *sg_get_bitmap_sg_filename(struct SgBitmap *bmp)
     return (const char*)bmp->sgFilename;
 }
 
-int sg_get_bitmap_id(struct SgBitmap *bmp)
+uint32_t sg_get_bitmap_id(struct SgBitmap *bmp)
 {
     return bmp->bitmapId;
 }
 
-struct SgImage *sg_get_bitmap_image(struct SgBitmap *bmp, int i)
+struct SgImage *sg_get_bitmap_image(struct SgBitmap *bmp, uint32_t i)
 {
     if (i < 0 || i >= bmp->images_n) {
         return NULL;
@@ -128,7 +128,7 @@ struct SgImage *sg_get_bitmap_image(struct SgBitmap *bmp, int i)
     return bmp->images[i];
 }
 
-int sg_get_bitmap_image_count(struct SgBitmap *bmp)
+uint32_t sg_get_bitmap_image_count(struct SgBitmap *bmp)
 {
     return bmp->images_n;
 }
@@ -136,9 +136,9 @@ int sg_get_bitmap_image_count(struct SgBitmap *bmp)
 void sg_add_bitmap_image(struct SgBitmap *bmp, struct SgImage *child)
 {
     if (bmp->images_n >= bmp->images_c) {
-        int new_cap = bmp->images_c * 2 | 4;
+        uint32_t new_cap = bmp->images_c * 2 | 4;
         struct SgImage **new_arr = (struct SgImage**)(malloc(new_cap * sizeof(struct SgImage*)));
-        int i;
+        uint32_t i;
         for (i = 0; i < bmp->images_c; i++) {
             new_arr[i] = bmp->images[i];
         }

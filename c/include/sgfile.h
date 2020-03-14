@@ -21,13 +21,13 @@ uint32_t sg_get_file_total_filesize(struct SgFile *file);
 uint32_t sg_get_file_555_filesize(struct SgFile *file);
 uint32_t sg_get_file_external_filesize(struct SgFile *file);
 
-int sg_get_file_bitmap_count(struct SgFile *file);
+uint32_t sg_get_file_bitmap_count(struct SgFile *file);
 void sg_add_file_bitmap(struct SgFile *file, struct SgBitmap *bmp);
-struct SgBitmap *sg_get_file_bitmap(struct SgFile *file, int i);
+struct SgBitmap *sg_get_file_bitmap(struct SgFile *file, uint32_t i);
 
-int sg_get_file_image_count(struct SgFile *file);
+uint32_t sg_get_file_image_count(struct SgFile *file);
 void sg_add_file_image(struct SgFile *file, struct SgImage *bmp);
-struct SgImage *sg_get_file_image(struct SgFile *file, int i);
+struct SgImage *sg_get_file_image(struct SgFile *file, uint32_t i);
 
 #ifdef __cplusplus
 }
