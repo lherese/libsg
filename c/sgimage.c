@@ -1,5 +1,5 @@
-#include <sg/sgimage.h>
-#include <sg/utils.h>
+#include "include/sgimage.h"
+#include "include/utils.h"
 
 #include <math.h>
 #include <stdint.h>

@@ -1,6 +1,6 @@
-#include <sg/sgbitmap.h>
-#include <sg/sgimage.h>
-#include <sg/utils.h>
+#include "include/sgbitmap.h"
+#include "include/sgimage.h"
+#include "include/utils.h"
 
 #include <stdlib.h>
 #include <string.h>

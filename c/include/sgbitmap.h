@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include <sg/sgimage.h>
+#include "sgimage.h"
 
 #ifdef __cplusplus
 extern "C" {
